@@ -1,0 +1,75 @@
+{
+  "lucide-react": {
+    "install": {
+      "cmd": ["lucide-react@latest"],
+      "runWith": "add"
+    }
+  },
+
+  "dotenv": {
+    "install": {
+      "cmd": ["dotenv@latest"],
+      "runWith": "add"
+    }
+  },
+
+  "zod": {
+    "install": {
+      "cmd": ["zod@latest"],
+      "runWith": "add"
+    }
+  },
+
+  "drizzle": {
+    "install": {
+      "cmd": ["drizzle-kit@latest", "drizzle-orm@latest"],
+      "runWith": "add"
+    },
+    "commands": {
+      "generate": {
+        "cmd": ["drizzle-kit generate"],
+        "runWith": "dlx"
+      },
+      "migrate": {
+        "cmd": ["drizzle-kit migrate"],
+        "runWith": "dlx"
+      },
+      "push": {
+        "cmd": ["drizzle-kit push"],
+        "runWith": "dlx"
+      },
+      "autoSetup": {
+        "cmd": [
+          "wiz x drizzle generate",
+          "wiz x drizzle migrate"
+        ],
+        "runWith": "cli",
+        "autoRun": true
+      }
+    }
+  },
+
+  "shadcn": {
+    "install": {
+      "cmd": ["shadcn@latest init"],
+      "runWith": "dlx"
+    },
+    "commands": {
+      "add": {
+        "cmd": ["shadcn@latest add"],
+        "runWith": "dlx"
+      },
+      "essentials": {
+        "cmd": [
+          "wiz x shadcn add button",
+          "wiz x shadcn add dialog",
+          "wiz x shadcn add sheet",
+          "wiz x shadcn add input",
+          "wiz x shadcn add card"
+        ],
+        "runWith": "cli",
+        "autoRun": true
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "packageManager" : {
+    "packageManagerOptions" : ["npm", "pnpm", "yarn", "bun"],
+    "defaultPackageManager" : "pnpm"
+  },
+  "templates" : {
+    "templateOptions" : ["nextjs", "t3"],
+    "defaultTemplate" : "nextjs"
+  }
+}

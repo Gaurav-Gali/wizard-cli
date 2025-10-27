@@ -1,19 +1,41 @@
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, copyFileSync, readdirSync, lstatSync } from "fs";
 import path from "path";
-import {checkType} from "../../types/doctorTypes.js";
+import { fileURLToPath } from "url";
+import { checkType } from "../../types/doctorTypes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+function copyRecursive(src: string, dest: string) {
+    if (!existsSync(src)) return;
+
+    const stats = lstatSync(src);
+    if (stats.isDirectory()) {
+        if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
+        const files = readdirSync(src);
+        for (const file of files) {
+            const srcPath = path.join(src, file);
+            const destPath = path.join(dest, file);
+            copyRecursive(srcPath, destPath);
+        }
+    } else {
+        copyFileSync(src, dest);
+    }
+}
 
 export async function globalWizardCheck(check: checkType) {
     const wizDir = path.join(process.env.HOME || "", ".wiz");
-    const bundlesDir = path.join(wizDir, "bundles");
-    const scriptsDir = path.join(wizDir, "scripts");
-    const baseBundle = path.join(bundlesDir, "base.json");
-    const configFile = path.join(wizDir, "config.json");
+
+    // detect config path (works for both src and dist)
+    const devPath = path.resolve(__dirname, "../../config");
+    const prodPath = path.resolve(__dirname, "../config");
+    const configDir = existsSync(devPath) ? devPath : prodPath;
 
     if (!existsSync(wizDir)) {
         mkdirSync(wizDir, { recursive: true });
-        mkdirSync(bundlesDir, { recursive: true });
-        mkdirSync(scriptsDir, { recursive: true });
-        writeFileSync(baseBundle, JSON.stringify({}, null, 2));
+
+        console.log("🔍 Copying from:", configDir);
+        copyRecursive(configDir, wizDir);
 
         check.valid = false;
         check.errors = ["The Wizard-CLI Configuration did not exist"];
