@@ -4,6 +4,7 @@ import { Command } from 'commander';
 
 // Importing Commands
 import {registerCreateCommand} from "./commands/create.js";
+import {registerDoctorCommand} from "./commands/doctor.js";
 
 const program = new Command();
 
@@ -14,5 +15,6 @@ program
 
 // Registering Commands
 registerCreateCommand(program);
+registerDoctorCommand(program)
 
 program.parse();

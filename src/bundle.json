@@ -1,0 +1,32 @@
+{
+  "config" : {
+    "packageManager" : "pnpm"
+  },
+
+  "dependencies" : {
+
+    "shadcn" : {
+      "docs" : "https://shadcn.com/docs",
+      "installation" : {
+        "cmd" : "shadcn@latest init",
+        "runWith" : "dlx"
+      },
+      "commands" : {
+        "add" : {
+          "cmd" : "shadcn@latest add",
+          "runWith" : "dlx"
+        },
+        "removeAll" : {
+          "cmd" : "~/.wiz/.scripts/shadcn-remove-all.sh",
+          "runWith" : "cli"
+        },
+        "essentials" : {
+          "cmd" : ["wiz shadcn add button", "wiz shadcn add dialog", "wiz shadcn add sheet"],
+          "runWith" : "cli",
+          "autoRun": true
+        }
+      }
+    }
+
+  }
+}
